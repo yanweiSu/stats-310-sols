@@ -1,0 +1,592 @@
+\section{Convergence of Random Variables}
+
+\subsection{Four notions of convergence}
+\subsection{Interrelations between the four notions}
+\begin{exercise}\label{8.2.2}8.2.2\\
+Give a counterexample to show that convergence in probability does not imply almost sure convergence.
+\end{exercise}
+\begin{answer}
+% (Hao)
+% One observation from the question is that we should find a sequence of random variables $\{X_n\}_{n=1}^\infty$ converge to $X$ such that Given any $\epsilon > 0$, $\lim_{n \to \infty} \mathbb{P}(|X_n - X| > \epsilon) = 0$, 
+% TBD
+
+% https://math.stackexchange.com/a/149777/531612
+Define a sequence of functions on $\{0,1\}$ by $f_n=\frac{1}{n}\mathds{1}_{\{0\}}+(1-\frac{1}{n})\mathds{1}_{\{1\}}$, then there exists a sequence of independent random variables $\{X_n\}_{\mathbb{N}}$ on $(\{0,1\}^\mathbb{N},\mathcal{F},\mathbb{P})$ s.t. $f_n$ is the p.m.f. of $X_n$ (See \textsc{Exercise 7.1.8.}). Then for any $\epsilon>0$, $\mathbb{P}(|X_n-1|>\epsilon)=1/n$ hence $\lim_{n\rightarrow\infty}\mathbb{P}(|X_n-1|>\epsilon)=0$ (converge to $1$ in probability). On the other hand, $\mathbb{P}(\{|X_n-1|>\epsilon\text{ i.o.}\})=1$ since $\sum_{n=1}^\infty\mathbb{P}(|X_n-1|>\epsilon)=\sum_{n=1}^\infty\frac{1}{n}=\infty$ and by the second Borel-Cantelli lemma. Thus $X_n\not\to 1$ a.s. 
+\qquad \qed
+\end{answer}
+
+\begin{exercise}8.2.5 \\
+Show that the above proposition(proposition 8.2.4) is not valid if we demanded that $F_{X_n}(t) \to F_X(t)$ for all $t$, instead of just the continuity points of $F_X$.
+\end{exercise}
+
+\begin{answer}(In class)
+We can consider $X_n = X + 1/n$. Then, $F_{X_n}(x) = F_X(x-1/n)$, which does not necessarily approach $F_X(x)$(cdf only guarantees continuous on the right).
+For example, let
+\begin{equation}
+    F_X(x) = 
+    \begin{cases}
+    0,\qquad x < 0 \\
+    0.5,\quad 0 \leq x < 1 \\
+    1,\qquad x \geq 1
+    \end{cases}
+\end{equation} Then $F_{X_n}(1) = 0.5$ for all $n$, so $\lim_{n \to \infty} F_{X_n}(1) = 0 \neq 1 = F_X(1)$.
+\qquad \qed
+\end{answer}
+
+\begin{exercise}8.2.6 \\
+If $X_n \to c$ in distribution, where c is a constant, show that $X_n \to c$ in probability.
+\end{exercise}
+
+\begin{answer}(In class)
+This is like the converse statement of proposition 8.2.4. The goal of the exercise is to show that $\mathbb{P}(|X_n - c| < d) \to 0$ as $n \to \infty$, for all $d > 0$.
+The condition $X_{n} \to c$ in distribution implies given any $\epsilon > 0$, $|F_{X_n}(t) F_c(t)| < \epsilon$, for  $t$ is any continuous point of $F_c$. Moreover, since $F_c(t)= \begin{cases}1, t \geq c \\ 0, t < c \end{cases}$, $t=c$ is the only discontinuous point of $c$. Hence, given any $d > 0$ and $\epsilon > 0$, we have $N_d \in \mathbb{N}$ such that $$|F_{X_n}(c+d)-F_c(c+d)| = |F_{X_n}(c+d) -1| < \epsilon/2$$, and $$|F_{X_n}(c-d)-F_c(c-d)| = |F_{X_n}(c-d) -0| < \epsilon/2$$, for all $n > N_d$. As a result, 
+\begin{equation}
+    \begin{aligned}
+    \left| \mathbb{P}(|X_n - c| < d) \right| &= 1 - \mathbb{P}(|X_n - c| \geq d) \\&= 1 - F_{X_n}(c+d) + F_{X_n}(c-d) \\&< |1 - F_{X_n}(c+d)| + | 0 - F_{X_n}(c-d)| \\&< \epsilon
+    \end{aligned}
+\end{equation}
+, for all $n > N_d$.
+\qquad \qed
+\end{answer}
+
+
+\begin{exercise}8.2.10 \\
+Take any $p> 0$. Give counterexamples to show that almost sure convergence does not imply $L^p$ convergence, and $L^p$ convergence does not imply almost sure convergence.
+\end{exercise}
+
+\begin{answer}
+For the counterexample showing convergence in $L^p$ does not imply almost sure convergence, we reuse the answer of exercise 8.2.2, and check that $|X_n| < 1$ so proposition 8.2.9 gives $X_n \to X$ in $L^p$, but in exercise 8.2.2 we had showed that $X_n$ does not converge to $X$ a,s.
+
+For the counterexample showing  $X_n \not\xrightarrow[]{L^p} X$, we consider $X_n$ on $\Omega = [0,1]$ with uniform density.
+\begin{equation}
+    X_n(\omega) = \begin{cases}
+        (\frac{1}{2}n \omega)^{1/p}, 0\leq \omega < \frac{1}{2n} \\
+         [\frac{1}{2n}-\omega ]^{1/p},  \frac{1}{2n} \leq \omega < 1/n \\
+        0, 1/n<\omega \leq 1
+    \end{cases}
+\end{equation} 
+Then, it is clear that $X_n$ converge to $X = 0$ point wisely, so $X_n \xrightarrow[]{a.s} X$. However,
+\begin{equation}
+    \mathbb{E}[||X_n - 0||^p] = \int_0^1 ||X_n(\omega)||^p d\omega = 1
+\end{equation}
+for all $n$, so $X_n \not \xrightarrow[]{L^p} X$.
+\qquad \qed
+\end{answer}
+
+\subsection{Uniform integrability}
+\subsection{The weak law of large numbers}
+\begin{exercise} 8.4.3 (An occupancy problem)\\
+Let $n$ balls be dropped uniformly and independently at random into $n$ boxes. Let $N_n$ be the number of emppty boxes. Prove that $N_n/n \to e^{-1}$ in probability as $n \to \infty$ (Hint: Write $N_n$ as a sum of indicator variables.)
+\end{exercise}
+
+\begin{answer}(In class)
+Define $X_i$ as indicator if the ith box is empty or not, i.e $X_i = 1$ if the box is empty, otherwise it is 0. In addition, $\mathbb{P}(X_i = 0) = 1 - (\frac{n-1}{n})^n, \mathbb{P}(X_i = 1) = (\frac{n-1}{n})^n$.
+With all the information, we can derive that $\mathbb{E}(X_i) = \mathbb{P}(X_i = 1) =  (\frac{n-1}{n})^n = (1 + \frac{-1}{n})^n \to e^{-1}$.
+That implies $ \lim_{n \to \infty} \mathbb{P}(|P_n - E(X_1)| < \epsilon) <  \lim_{n \to \infty} \mathbb{P}(|P_n - e^{-1}| + |e^{-1} - E(X_1)| < \epsilon)  = \lim_{n \to \infty} \mathbb{P}(|P_n - e^{-1}| < \epsilon) $
+
+Moving on, if we want to estimate the expectation of $N_n = \sum X_i$ by proposition 8.4.1, we have to calculate the variance of $X_i$ (which is $\sigma_{ii}$) and the correlation of $X_i,X_j$, $\sigma_{ij}$.
+For $\sigma_{ii}$, there are $n$ of them and $\mathbb{E}(X_i^2) = \mathbb{P}(X_i = 1)= (1 + \frac{-1}{n})^n$, so $\sigma_{ii}  = \mathbb{E}(X_i^2) - \mathbb{E}(X_i)^2 = (1 + \frac{-1}{n})^n(1 - (1 + \frac{-1}{n})^n) < 1$. 
+
+On the other hand, the number of $\sigma_{ij}, i\neq j$ we have to consider is $C(n,2)$, which has the order $O(n^2)$, so we have to make sure $\sigma_{ij} \to 0$ as $n$ increase. Fortunately, it is really the case. We know that $\mathbb{E}(X_i X_j) = (\frac{n-2}{n})^n$, so $|\sigma_{ij}| = |(\frac{n-2}{n})^n - (\frac{n-1}{n})^{2n}| < |(\frac{n-2}{n})^n - e^{-2}| +| (e^{-1})^2 - (\frac{n-1}{n})^{2n}|  = \epsilon(n)$, where $\lim_{n \to \infty}\epsilon(n)  = 0$
+
+Then by 8.4.1
+$$
+    \mathbb{P} \left( |\frac{1}{n}N_n - e^{-1}| < d \right) \leq \frac{1}{d^2 n^2}\left[ n + C(n,2)\epsilon(n) \right] 
+$$, which has the order $O(n^{-1})$, so indeed $\frac{1}{n}N_n \to  e^{-1}$ in probability.
+
+\qquad \qed
+\end{answer}
+
+\begin{exercise} 8.4.4 (Coupon collector’s problem). Suppose that there are $n$ types of coupons, and a collector wants to obtain at least one of each type. Each time a coupon is bought, it is one of the $n$ types with equal probability. Let $T_n$ be the number of trials needed to acquire all $n$ types. Prove that $T_n/(n \log n)\rightarrow 1$ in probability as $n\rightarrow\infty$. (Hint: Let $\tau_k$ be the number of trials needed to acquire $k$ distinct types of coupons. Prove that $\tau_k-\tau_{k-1}$ are independent geometric random variables with different means, and $T_n$ is the sum of these variables.)
+\end{exercise}
+\begin{answer} Let $\tau_k$ be the number of trials needed to collect $k$ distinct types. Then $X_k=\tau_k-\tau_{k-1}$ is the number of trials needed to collect $k$ distinct types once we have $k-1$ distinct types. Then $T_n=X_1+\cdots+X_n$, and $X_k$ are independent since each trials are independent. Moreover, $X_k$ has p.d.f.
+\begin{equation*}
+    \mathbb{P}(X_k=x)=\mathbb{P}(\tau_k-\tau_{k-1}=x)=\Big(\frac{k-1}{n}\Big)^{x-1}\Big(1-\frac{k-1}{n}\Big),\;x\in\mathbb{N}.
+\end{equation*}
+By Chebyshev's inequality,
+\begin{equation*}
+\begin{aligned}
+    \mathbb{P}\Big(\Big|\frac{T_n}{n\log n}-\frac{\mathbb{E}(T_n)}{n\log n}\Big|\geq\epsilon\Big)&\leq \frac{1}{(n\log n)^2\epsilon^2}\mathbb{E}\Big(\sum_{k=1}^nX_k-\mathbb{E}X_k\Big)^2\\
+    &=\frac{1}{(n\log n)^2\epsilon^2}\sum_{k=1}^n\mathbb{E}(X_k-\mathbb{E}X_k)^2 && (\text{Independence}) \\
+    &=\frac{\sum_{k=1}^n\text{Var}(X_k)}{(n\log n)^2\epsilon^2}.
+\end{aligned}
+\end{equation*}
+One can calculate that $\text{Var}(X_k)=(\frac{k-1}{n})/(1-\frac{k-1}{n})^2$. Hence
+\begin{equation*}
+\begin{aligned}
+    \sum_{k=1}^n\text{Var}(X_k)=\sum_{t=1}^{n-1}\frac{\frac{t}{n}}{(1-\frac{t}{n})^2}&\leq\int_0^{n-1}\frac{\frac{t}{n}}{(1-\frac{t}{n})^2}dt+(n^2-n) && (\text{Monotonically increase})\\&
+    =n\int_{\frac{1}{n}}^1\frac{1-u}{u^2}du+n^2-n && (u=1-\frac{t}{n})\\&
+    =2(n^2-n)-n\log(n).
+\end{aligned}
+\end{equation*}
+So the tail bound reads
+\begin{equation*}
+    \frac{\sum_{k=1}^n\text{Var}(X_k)}{(n\log n)^2\epsilon^2}\leq\frac{2(n^2-n)-n\log(n)}{(n\log n)^2\epsilon^2}\rightarrow 0\text{ as }n\rightarrow\infty.
+\end{equation*}
+Thus $T_n/(n\log n)\rightarrow\mathbb{E}(T_n)/(n\log n)$ in probability. Also, one can verify
+\begin{equation*}
+\begin{aligned}
+    &\mathbb{E}(T_n)=\sum_{k=1}^n\mathbb{E}(X_k)=\sum_{k=1}^n\frac{1}{1-\frac{k-1}{n}}\leq\int_0^{n-1}\frac{1}{1-\frac{t}{n}}dt+n,\\
+    &\text{and  }\mathbb{E}(T_n)\geq\int_0^{n-1}\frac{1}{1-\frac{t}{n}}dt
+\end{aligned}
+\end{equation*}
+by monotonicity of the summation. Hence we have $n\log(n)\leq\mathbb{E}(T_n)\leq n\log(n)+n$. Divide all of them by $n\log n$ and let $n\rightarrow\infty$, then we have $\lim_{n\rightarrow\infty}\mathbb{E}(T_n)/(n\log n)=1$. That is, $T_n/(n\log n)\rightarrow 1$ in probability.
+\qed\qquad
+\end{answer}
+
+\begin{exercise} 8.4.5 (Erdős–Rényi random graphs)\\
+Define an undirected random
+graph on $n$ vertices by putting an edge between any two vertices with probability
+$p$ and excluding the edge with probability $1-p$, all edges independent. This is
+known as the Erdős–Rényi $G(n, p)$ random graph. First, formulate the model in the
+measure theoretic framework using independent Bernoulli random variables. Next,
+show that if $T_{n,p}$ is the number of triangles in this random graph, then $T_{n,p}/n^3 \to p^3/6$ in probability as $n \to\infty$, if $p$ remains fixed.
+\end{exercise}
+\begin{answer}(Hao)
+First of all, let's go through some basic setup.
+We understand that each triangle of the graph can be represented by three edges, so we can consider the $X_i$ is the 1 iff all three edges are put. $X_i =  1*\mathbbm{1}_{X_i = 1} + 0*\mathbbm{1}_{X_i = 0} $, and $\mathbb{P}(X_i = 1) = p^3$. The number of different triangles is $C(n,3)$, and $T_{n,p} = \sum X_i, i=1,2,\dots C(n,3)$.
+
+There is an intuitive way and a rigorous way. The intuitive way goes as follows: Since each $X_i$ as an expectation of $p^3$ and there are in total around $n^3/6$ of triangles. Hence, on average $T_{n,p}/n^3$ is around $p^3/6$.
+
+Of course, we still need to make sure that it converge in probability. For this matter, we should estimate the variance of $X_i$ and the correlation between $X_i, X_j$, i.e we calculate $\mathbb{E}[(X_i - p^3)(X_j - p^3)]$. 
+There are two cases need to be determined, that is whether the two triangles share the same side or not. Notice that two triangles can't share two same sides.
+
+The variance of $X_i$(i.e $\sigma_{ii}$) can be easily verified to be $p^3-p^6$, and there are $C(n,3)$ of them. Next we consider correlation. The case where two triangles do not share the same side is easy, they are independent by our model setup, so the correlation is 0. For the second case, suppose the ith and jth triangle share one side, which in total $C(n,4)$ (see Figure \ref{fig:8_4_5})of them and $\mathbb{P}(X_i X_j = 1) = p^5$, so
+
+$$
+    \sigma_{ij} = \mathbb{E}[(X_i - p^3)(X_j - p^3)] = \mathbb{E}(X_i X_j) -2p^6 + p^6 
+    = p^5 -p^6
+$$
+
+Hence, by the methods employed in  8.4.1
+$$
+    \mathbb{P} \left( |\frac{1}{C(n,3)}T_{n,p} - p^3| < \epsilon \right) \leq \frac{1}{\epsilon^2 C(n,3)^2}\left[(p^5-p^6)C(n,4) + (p^3 - p^6)C(n,3) \right]
+$$
+The right hand side is of order $O(n^{-2})$, so indeed $\frac{1}{C(n,3)}T_{n,p} \xrightarrow[]{p} p^3$.
+Also, the fact that $C(n,3)/(n^3/6) \to 1$ give the result.
+
+% \begin{figure}[!h]
+%     \centering
+%     \includegraphics{Note/Figures/TBD.jpg}
+%     \caption{C(n,4) means the number of 4-side shape}
+%     \label{fig:8_4_5}
+% \end{figure}
+\qquad \qed
+\end{answer} 
+
+\subsection{The strong law of large numbers}
+\begin{exercise} 8.5.2. Using \textsc{Exercise} 7.3.2, show that if $X_1, X_2,\cdots$ is a sequence
+of i.i.d. random variables such that $\mathbb{E}|X_1| = \infty$, then
+\begin{equation*}
+    \mathbb{P}\Big(\frac{1}{n}\sum_{i=1}^nX_i\text{ has a finite limite as }n\rightarrow\infty\Big)=0.
+\end{equation*}
+
+\end{exercise}
+\begin{answer} Recall $\textsc{Exercise 7.3.2.}$: if $\{X_i\}_{i\in\mathbb{N}}$ is a sequence of random variables s.t. $\mathbb{E}|X_1|=\infty$, then $\mathbb{P}(|X_n|>n\text{ i.o.})=1$. Now since
+\begin{equation*}
+    \bigcap_{N\in\mathbb{N}}\bigcup_{n>N}\{|X_n|>n\}\subseteq\bigcap_{N\in\mathbb{N}}\bigcup_{n>N}\{|X_n|>\epsilon\}
+\end{equation*}
+for some $\epsilon\in(0,1)$, clearly
+\begin{equation*}
+    \mathbb{P}\Big(\bigcup_{\epsilon>0}\bigcap_{N\in\mathbb{N}}\bigcup_{n>N}\{|X_n|>\epsilon\}\Big)=1,
+\end{equation*}
+i.e. $\lim_{n\rightarrow\infty}X_n\neq 0$ a.e., therefore $\lim_{n\rightarrow\infty}\sum_{i=1}^nX_i/n$ doesn't converge to finite a.e.
+\qed \qquad
+\end{answer}
+
+\begin{exercise} 8.5.3. If $X_1, X_2,\cdots$ are i.i.d. random variables with $\mathbb{E}(X_1) = \infty$,
+show that $n^{-1} \sum^n_{i=1} X_i \rightarrow \infty$ a.s.
+\end{exercise}
+\begin{answer}
+In the sense of Lebesgue integral, $\mathbb{E}(X)=\infty$ if and only if $\mathbb{E}(X^+)=\infty$ and $\mathbb{E}(X^-)<\infty$. Since $X^+$ is measurable and nonnegative, there exists a sequence of simple functions $\{Y_m\}_{m\in\mathbb{N}}$ on $\Omega$ such that $Y_m\uparrow X$ as $m\rightarrow\infty$ with each $Y_m\leq m$ on $\Omega$. (For example $Y_m=X^+\mathds{1}_{\{X^+<m\}}+m\mathds{1}_{\{X^+\geq m\}}$.) Then $\mathbb{E}(Y_m)<\infty$ for all $m\in\mathbb{N}$. Furthermore, by monotone convergence theorem,
+\begin{equation*}
+    \lim_{m\rightarrow\infty}\int Y_md\mathbb{P}=\int X^+d\mathbb{P}=\mathbb{E}(X^+)=\infty,
+\end{equation*}
+i.e. $\mathbb{E}(Y_m)\rightarrow\infty$. Now we claim that $\lim_{n\rightarrow\infty}\sum_{i=1}^nX_i^+/n=\infty$ a.s.\\
+(Proof of claim) Let $L\in\mathbb{N}$, then there exists $m\in\mathbb{N}$ such that $\mathbb{E}(Y_m)>L$. Also,
+\begin{equation*}
+    \begin{aligned}
+        \Big\{\lim_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^nY_m^{(i)}=\mathbb{E}(Y_m)\Big\}&\subseteq\bigcup_{N\in\mathbb{N}}\bigcap_{n\geq N}\Big\{\frac{1}{n}\sum_{i=1}^nY_m^{(i)}>L\Big\} && (\mathbb{E}(Y_m)>L)
+        \\&
+        \subseteq\bigcup_{N\in\mathbb{N}}\bigcap_{n\geq N}\Big\{\frac{1}{n}\sum_{i=1}^nX^+_i>L\Big\} && (X^+\geq Y_m \text{ on } \Omega)
+        \\&
+        \subseteq\Big\{\liminf_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^nX_i^+\geq L\Big\}.
+    \end{aligned}
+\end{equation*}
+But by SLLN, LHS $=\Omega$ almost surely for any $m\in\mathbb{N}$, that means
+\begin{equation*}
+    \Big\{\liminf_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^nX_i^+\geq L\Big\}=\Omega\;a.s.\; \forall L\in\mathbb{N}.
+\end{equation*}
+Hence $\liminf_{n\rightarrow\infty}\sum^n_{i=1}X_i^+/n=\infty$ a.s., which completes the proof.$\square$\\
+Since $\mathbb{E}(X^-)<\infty$, $\lim_{n\rightarrow\infty}\sum_{i=1}^nX_i^-/n=\mathbb{E}(X^-)$ a.s. by SLLN. Hence
+\begin{equation*}
+    \lim_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^nX_i=\lim_{n\rightarrow\infty}\Big(\frac{1}{n}\sum_{i=1}^nX_i^+-\frac{1}{n}\sum_{i=1}^nX_i^-\Big)=\infty-\mathbb{E}(X^-)=\infty\;a.s.
+\end{equation*}
+\qquad \qed
+\end{answer}
+
+\begin{exercise}8.5.7. (SLLN under bounded fourth moment). Let $\{X_n\}^\infty_{n=1}$ be a sequence of independent random variables with mean zero and uniformly bounded fourth moment. Prove that $n^{-1} \sum^n_{i=1} X_i \rightarrow 0$ a.s. (Hint: Use a fourth moment
+version of Chebychev’s inequality.)
+\end{exercise}
+\begin{answer}
+Let $S_n=\sum_{i=1}^nX_i$. To prove $\mathbb{P}(\bigcup_{N\in\mathbb{N}}\bigcap_{n\geq N}\{|S_n/n|<\epsilon\}) = 1$ for any $\epsilon>0$, it's suffice to prove that  $\mathbb{P}(\big\{|S_n/n|>\epsilon\text{ i.o.}\big\})=0$ for any $\epsilon>0$.\\
+Let $\epsilon>0$, $n\in\mathbb{N}$. Since $\{X_i\}_{i\in\mathbb{N}}$ are independent and $\mathbb{E}(X_i)=0$,
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{P}\Big(\Big|\frac{S_n}{n}\Big|>\epsilon\Big)\leq \frac{\mathbb{E}(S_n^4)}{n^4\epsilon^4}
+        =\frac{1}{n^4\epsilon^4}\Big(\sum_{i=1}^n\mathbb{E}(X_i^4)+\sum_{i\neq j}\mathbb{E}(X_i^2)\mathbb{E}(X_j^2)\Big).
+    \end{aligned}
+\end{equation*}
+One can check the above equation:
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}(S_n^4)=&\sum_{i=1}^n\mathbb{E}(X_i^4)+\sum_{\substack{i,j,k\\\text{ all distinct}}}^{3\binom{n}{3}\frac{4!}{2!}}\mathbb{E}(X_i^2X_jX_k)+\sum^{2\binom{n}{2}\frac{4!}{3!}}_{i\neq j}\mathbb{E}(X_i^3X_j)\\&
+        +\sum_{i\neq j}^{\binom{n}{2}\frac{4!}{2!2!}}\mathbb{E}(X_i^2X_j^2)+\sum_{\substack{i,j,k,l\\\text{all distinct}}}^{\binom{n}{4}4!}\mathbb{E}(X_iX_jX_kX_l).
+    \end{aligned}
+\end{equation*}
+Let $M$ be the uniform bound of $\mathbb{E}(X_i^4)$, then by Jenson's inequality we have $\mathbb{E}(X_i^2)\leq\sqrt{M}$. So the above equation becomes
+\begin{equation*}
+    \mathbb{P}\Big(\Big|\frac{S_n}{n}\Big|>\epsilon\Big)\leq\frac{M}{n^4\epsilon^4}\Big(n+\binom{n}{2}\frac{4!}{2!2!}\Big)=\frac{3M(n^2-5n)}{n^4\epsilon^4}\leq\frac{3M}{n^2\epsilon^4}.
+\end{equation*}
+Hence $\sum_{n\in\mathbb{N}}\mathbb{P}(|S_n/n|>\epsilon)\leq C(\epsilon)\sum_{n\in\mathbb{N}}1/n^2<\infty$. Then by Borel-Cantelli lemma we have $\mathbb{P}(|S_n/n|>\epsilon\text{ i.o.})=0$, which implies $\mathbb{P}(\bigcup_{N\in\mathbb{N}}\bigcap_{n\geq N}\{|S_n/n|<\epsilon\}) = 1$. Since $\epsilon>0$ is arbitrary, $\mathbb{P}(\lim_{n\rightarrow\infty}S_n/n=0)=1$.
+\qed \qquad
+\end{answer}
+
+\begin{exercise}8.5.8. (Random matrices). Let $\{X_{ij}\}_{1\leq i\leq j\leq\infty}$ be a collection of
+i.i.d. random variables with mean zero and all moments finite. Let $X_{ji}= X_{ij}$ if $j > i$. Let $W_n$ be the $n\times n$ symmetric random matrix whose $(i, j)$th entry is
+$n^{-1/2}X_{ij}$. A matrix like $W_n$ is called a Wigner matrix. Let $\lambda_{n,1} \geq\cdots\geq\lambda_{n,n}$ be
+the eigenvalues of $W_n$, repeated by multiplicities. For any integer $k \geq 1$, show that
+\begin{equation*}
+    \frac{1}{n}\sum_{i=1}^n\lambda_{n,i}^k-\mathbb{E}\Big(\frac{1}{n}\sum_{i=1}^n\lambda_{n,i}^k\Big)\rightarrow 0\;a.s.\text{ as }n\rightarrow\infty.
+\end{equation*}
+\end{exercise}
+\begin{answer}
+Rewrite $\sum_{i=1}^n\lambda^k_{n,i}=tr(W_n^k)=\sum_{i=1}^nW^k_{ii}$, the diagonal sum of the $k$th power of $W_n$. Fix $k\in\mathbb{N}$, $\epsilon>0$. For each $n\in\mathbb{N}$, we're going to show the tail probability at least
+\begin{equation*}
+\mathbb{P}\Big(\Big|\frac{1}{n}\sum_{i=1}^nW^k_{ii}-\mathbb{E}\Big(\frac{1}{n}\sum_{i=1}^nW_{ii}^k\Big)\Big|\geq\epsilon\Big)\sim\frac{\text{const.}}{\epsilon^2n^2}.
+\end{equation*}
+Then by Borel-Cantelli lemma we'll have
+\begin{equation*}
+    \mathbb{P}\Big(\bigcap_{N\in\mathbb{N}}\bigcup_{n>N}\Big\{\Big|\frac{1}{n}\sum_{i=1}^nW^k_{ii}-\mathbb{E}\Big(\frac{1}{n}\sum_{i=1}^nW_{ii}^k\Big)\Big|\geq\epsilon\Big\}\Big)=0,
+\end{equation*}
+i.e.
+\begin{equation*}
+    \mathbb{P}\Big(\bigcup_{N\in\mathbb{N}}\bigcap_{n>N}\Big\{\Big|\frac{1}{n}\sum_{i=1}^nW^k_{ii}-\mathbb{E}\Big(\frac{1}{n}\sum_{i=1}^nW_{ii}^k\Big)\Big|<\epsilon\Big\}\Big)=1.
+\end{equation*}
+Since $\epsilon>0$ is arbitrary, we thus proved that $\sum_{i=1}^nW_{ii}^k/n-\mathbb{E}\big(\sum_{i=1}^nW^k_{ii}/n\big)\rightarrow 0$ a.s. To estimate the tail bound, we evaluate $\sum_{i,j}\sigma_{ij}$ where $\sigma_{ij}=\mathbb{E}(W_{ii}^kW_{jj}^k)$ in the following part.\\
+
+\textbf{(Covariance estimation)} Let $k$ be an integer, observe that 
+\begin{equation*}
+W_{ii}^k=n^{-k/2}\sum_{(j_1,\cdots,j_{k-1})\in[n]^{k-1}}X_{i,j_1}X_{j_1,j_2}\cdots X_{j_{k-1}i}
+\end{equation*}
+acts like a path $\mathbf{p}_i$ of length $k$ starts from $i$ and go back to $i$. In the following, I denotes $(V_{\mathbf{p}_i}, E_{\mathbf{p}_i})$ to be the graph covered by $\mathbf{p}_i$ excluding the end vertex $i$.\\
+
+\textbf{(A) For $k$ is odd.}\\
+(Expectation part)\\
+\textbf{Observation 1.} \textit{Let $\mathbf{p}_i$ be a path of length $k$ that starts and ends at some $i\in[n]$. If there is an edge passed by $\mathbf{p}_i$ exactly once (maybe odd number times?), then there exists loop or cycle in $(\{i\}\cup V_{\mathbf{p}_i}, E_{\mathbf{p}_i})$. Hence $|\{i\}\cup V_{\mathbf{p}_i}|\leq|E_{\mathbf{p}_i}|$.}
+
+Fix $i\in[n]$. If $k$ is odd and $\mathbb{E}(X_{\mathbf{p}_i})\neq 0$, then $|E_{\mathbf{p}_i}|\leq (k-1)/2$. Suppose $\mathbf{p}_i$ satisfies $|E_{\mathbf{p}_i}|=(k-1)/2$ and $\mathbb{E}(X_{\mathbf{p}_i})\neq 0$, then $|V_{\mathbf{p}_i}|\leq(k-3)/2$ (to be confirmed). Let $D_{k}$ be the number of patterns that such path can have, then we have
+\begin{equation*}
+\begin{aligned}
+    \sum_{\mathbf{p}_i}\mathbb{E}(X_{\mathbf{p}_i})&=M_2^{(k-3)/2}M_3D_k(n-1)\cdots(n-(k-3)/2)+O(n^{(k-3)/2-1})\\&
+    =M_2^{(k-3)/2}M_3D_kn^{(k-3)/2}+O(n^{(k-3)/2-1}).
+\end{aligned}
+\end{equation*}
+Hence
+\begin{equation*}
+    \mathbb{E}(W_{ii}^k)=\frac{1}{n^{(k/2)}}\sum_{\mathbf{p}_i}\mathbb{E}(X_{\mathbf{p}_i})=M_2^{(k-3)/2}M_3D_k\frac{1}{n\sqrt{n}}+O\Big(\frac{1}{n^2\sqrt{n}}\Big).
+\end{equation*}
+
+(Covariance part)\\
+Now we need to evaluate $\mathbb{E}(W_{ii}^kW_{jj}^k)=n^{-k}\sum_{\mathbf{p}_i,\mathbf{p}_j}\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})$. For $\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})\neq 0$, $|E_{\mathbf{p}_i}\cup E_{\mathbf{p}_j}|$ is at most $k$. Suppose $\mathbf{p}_i,\mathbf{p}_j$ satisfy $|E_{\mathbf{p}_i}\cup E_{\mathbf{p}_j}|=k$ and $\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})\neq 0$.
+
+If $k$ is odd and $i\neq j$, then $(\{i\}\cup V_{\mathbf{p}_i},E_{\mathbf{p}_i}),(\{j\}\cup V_{\mathbf{p}_j},E_{\mathbf{p}_j})$ is connected. (If not, then $E_i\cap E_j=\emptyset$ and $|E_k|\leq(k-1)/2$ for $k=i,j$. But $|E_i\cup E_j|=k-1.\rightarrow\leftarrow$) Also, $|E_k|>(k-1)/2$ for some $k\in\{i,j\}$, thus there is $e\in E_k$ which is passed by $\mathbf{p}_k$ only once. By \textit{Observation 1}, $|\{i,j\}\cup V_i\cup V_j|\leq|E_i\cup E_j|$, thus $|(V_i\cup V_j)\setminus\{i,j\}|\leq k-2$. Hence
+\begin{equation*}
+    \sum_{\mathbf{p}_i\\,\mathbf{p}_j}\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})=C(n-2)\cdots(n-(k-1))+O(n^{k-3})=M_2^kn^{k-2}+O(n^{k-3}).
+\end{equation*}
+Thus we have
+\begin{equation*}
+    \mathbb{E}(W_{ii}^kW_{jj}^k)=C\frac{1}{n^2}+O\Big(\frac{1}{n^3}\Big)\hspace{1cm}\text{for }i\neq j
+\end{equation*}
+
+If $k$ is odd and $i=j$, then there's one path with $|E_{\mathbf{p}_i}|>(k-1)/2$, and by \textit{Observation 1} again, $|\{i\}\cup V_{\mathbf{p}_i}\cup V_{\mathbf{p}^\prime_i}|\leq k$, thus $|V_{\mathbf{p}_i}\cup V_{\mathbf{p}^\prime_i}|\leq k-1$:
+\begin{equation*}
+    \sum_{\mathbf{p}_i\\,\mathbf{p}^\prime_i}\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}^\prime_i})=C^\prime (n-1)\cdots(n-(k-1))+O(n^{k-2})
+    =C^\prime n^{k-1}+O(n^{k-2}).
+\end{equation*}
+Hence 
+\begin{equation*}
+    \mathbb{E}[(W_{ii}^k)^2]=C^\prime\frac{1}{n}+O\Big(\frac{1}{n^2}\Big)\hspace{1cm}\text{for }i= j.
+\end{equation*}\\
+($k$ is odd summary) If $k$ is odd, then
+\begin{equation*}
+\begin{aligned}
+    \sum_{i,j}\sigma_{ij}^2&=\sum_{i=1}^n\mathbb{E}[(W_{ii}^k)^2]+\sum_{i\neq j}\mathbb{E}(W_{ii}^kW_{jj}^k)-n^2\Big(\mathbb{E}(W_{ii}^k)\Big)^2\\&
+    =C^\prime+O\Big(\frac{1}{n}\Big)+(n^2-n)\Big(C\frac{1}{n^2}+O\Big(\frac{1}{n^3}\Big)\Big)-\Big(A_k^2\frac{1}{n}+O\Big(\frac{1}{n^2}\Big)\Big)\\&
+    =C^\prime+C+O\Big(\frac{1}{n}\Big).
+\end{aligned}
+\end{equation*}\\
+\textbf{(B) For $k$ is even.}\\
+(Expectation part)\\
+If $k$ is even, let $i\in[n]$, and $\mathbf{p}_i$ be the path with both ends are $i$. Then $\mathbb{E}(X_{\mathbf{p}_i})\neq 0$ only if $|E_{\mathbf{p}_i}|\leq k/2$. Suppose $\mathbf{p}_i$ satisfies $|E_{\mathbf{p}_i}|= k/2$ and $\mathbb{E}(X_{\mathbf{p}_i})\neq 0$, then $|V_{\mathbf{p}_i}|\leq k/2$. Hence
+\begin{equation*}
+\begin{aligned}
+    \sum_{\mathbf{p}_i}\mathbb{E}(X_{\mathbf{p}_i})&=C_{k,1}M_2^{k/2}\times(n-1)\cdots(n-k/2) && (\frac{k}{2} \text{ edges and }\frac{k}{2}\text{ vertices})\\&
+    + C_{k,2}M_2^{k/2}\times(n-1)\cdots(n-(k/2-1)) && (\frac{k}{2}\text{ edges and }\frac{k}{2}-1\text{ vertices})\\&
+    + C_{k,3}M_2^{k/2-2}M_4\times(n-1)\cdots(n-(k/2-1)) && (\frac{k}{2}-1 \text{ edges and }\frac{k}{2}-1\text{ vertices}) \\&
+    + O(n^{k/2-2})
+\end{aligned}
+\end{equation*}
+Where $C_{k,1},C_{k,2},C_{k,3}$ are defined to be the numbers of patterns of $k$-length paths $\mathbf{p}$ that covers the graph $(V, E)=(\frac{k}{2}+1,\frac{k}{2}),(\frac{k}{2}+1,\frac{k}{2}-1),(\frac{k}{2},\frac{k}{2}-1)$, with no edges are passed only once, respectively. So they can be wrote as
+\begin{equation*}
+    \sum_{\mathbf{p}_i}\mathbb{E}(X_{\mathbf{p}_i})=C_{k,1}M_2^{k/2}n^{k/2}-C_{k,1}M_2^{k/2}\Big(S_{k/2}-\frac{C_{k,2}}{C_{k,1}}-\frac{C_{k,3}M_4}{C_{k,1}M_2^2}\Big)n^{k/2-1}+O(n^{k/2-2}),
+\end{equation*}
+where $S_{k/2}=1+2+\cdots+k/2$. And $\mathbb{E}(W_{ii}^k)=n^{-k/2}\sum_{\mathbf{p}_i}\mathbb{E}(X_{\mathbf{p}_i})$.
+
+(Covariance part)\\
+($k$ is even) $\mathbb{E}(W_{ii}^kW_{jj}^k)=n^{-k}\sum_{\mathbf{p}_i,\mathbf{p}_j}\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})$. $\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})\neq 0$ only if $|E_{\mathbf{p}_i}\cup E_{\mathbf{p}_j}|\leq k$.\\
+\textbf{Observation 2.} \textit{When $k$ is even,  $|V_{\mathbf{p}_i}\cup V_{\mathbf{p}_j}|\geq k-1\Rightarrow|E_{\mathbf{p}_k}|\leq k/2$ for $k=i,j$.}\\
+$Check.$ Suppose $|E_{\mathbf{p}_i}|>k/2$, then there exists $e\in E_i$ passed by $\mathbf{p}_i$ only once since $\mathbf{p}_i$ is of length $k$. Then $\mathbf{p}_j$ must pass $e$ otherwise $\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})=0$. Hence $(\{i,j\}\cup V_i\cup V_j,E_i\cup E_j)$ is a graph of $k$ edges with cycle or loop exists by \textit{Observation 1}. Hence $|\{i,j\}\cup V_i\cup V_j|\leq|E_i\cup E_j|=k$, i.e. $|V_i\cup V_j|\leq k-2.\;\square$
+
+($k$ edges and $k$ extra vertices) In this case, there are $k+2$ vertices(with $i,j$) in this graph. This implies $(\{i\}\cup V_i,E_i)$ and $(\{j\}\cup V_j, E_j)$ cannot be connected, otherwise there are at most $k+1$ vertices in total. Hence $|E_i|=|E_j|=k/2$ and $|V_i|=|V_j|=k/2$ since $|V|\leq|E|$. To have nonzero expectation, there are $C_{k,1}$ such patterns for each $i,j$, thus there are total $(C_{k,1})^2$ patterns, and hence $(C_{k,1})^2(n-2)\cdots(n-(k+1))$ choices.
+
+($k$ edges and $k-1$ extra vertices) By the observation, if $|V_i\cup V_j|=k-1$, since $|V_{i}|\leq |E_{i}|$, either $|E_i|=|E_j|=k/2$ with $|E_i\cap E_j|=0$ and $|V_i|=|V_j|=k/2$ with $|V_i\cap V_j|=1$, or $|E_i|=|E_j|=k/2$ with $|E_i\cap E_j|=0$ and $\{|V_i|,|V_j|\}=\{k/2,k/2-1\}$. There are $(C_{k,1})^2$ patterns in the first case, and $2C_{k,1}C_{k,2}$ patterns in the second case. Hence in total $((C_{k,1})^2+2C_{k,1}C_{k,2})(n-2)\cdots (n-k)$ choices.
+
+($k-1$ edges and $k-1$ extra vertices) By the observation, since $|V_i\cup V_j|=k-1$, either $\{|E_i|,|E_j|\}=\{k/2, k/2-1\}$ with $|E_i\cap E_j|=0$, or $|E_i|=|E_j|=k/2$ with $|E_i\cap E_j|=1$. But the latter one is impossible since if $E_i\cap E_j\neq\emptyset$, $(\{i\}\cup V_i,E_i)$ and $(\{j\}\cup V_j, E_j)$ are connected and has at most $k-1+1=k$ total vertices, i.e. $k-2\neq|V_i\cup V_j|$ extra vertices. As for the former one, they must be $\{|V_i|,|V_j|\}=\{k/2,k/2-1\}$ and $V_i\cap V_j=\emptyset$. Use the previous notation, there are $2C_{k,1}C_{k,3}$ such patterns, thus we have in total $2C_{k,1}C_{k,3}(n-2)\cdots(n-k)$ choices.\\ \\
+In summary,
+\begin{equation*}
+    \begin{aligned}
+        \sum_{\mathbf{p}_i,\mathbf{p}_j}\mathbb{E}(X_{\mathbf{p}_i}X_{\mathbf{p}_j})&=
+        (C_{k,1})^2M_2^k(n-2)\cdots(n-(k+1)) && (\text{case }1)\\&\hspace{0.5cm}
+        +((C_{k,1})^2+2C_{k,1}C_{k,2})M_2^k(n-2)\cdots(n-k) && (\text{case }2)\\&\hspace{0.5cm}
+        +2C_{k,1}C_{k,3}M_2^{k-2}M_4(n-2)\cdots(n-k) && (\text{case }3)\\&\hspace{0.5cm}
+        +O(n^{k-2})
+    \end{aligned}
+\end{equation*}
+i.e.
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}(W_{ii}^kW_{jj}^k)&=(C_{k,1})^2M_2^k+(C_{k,1})^2M_2^k\Big(1+2\frac{C_{k,2}}{C_{k,1}}+2\frac{C_{k,3}M_4}{C_{k,1}M_2^2}-(S_{k+1}-1)\Big)\frac{1}{n}\\&\hspace{0.5cm}
+        +O\Big(\frac{1}{n^2}\Big)
+    \end{aligned}
+\end{equation*}
+Then the covariance $\sigma_{ij}^2=\mathbb{E}(W_{ii}^k-\mathbb{E}(W_{ii}^k))(W_{jj}^k-\mathbb{E}(W_{jj}^k))=\mathbb{E}(W_{ii}^kW_{jj}^k)-(\mathbb{E}(W)_{ii}^k)^2$ is
+\begin{equation*}
+    \begin{aligned}
+        \sigma_{ij}^2&=\mathbb{E}(W_{ii}^kW_{jj}^k)-(\mathbb{E}(W)_{ii}^k)^2\\&
+        =(C_{k,1})^2M^k_2(2S_{k/2}-S_{k+1}+2)\frac{1}{n}+O\Big(\frac{1}{n^2}\Big)\\&
+        = O\Big(\frac{1}{n^2}\Big),
+    \end{aligned}
+\end{equation*}
+since in the first term of RHS, $2S_{k/2}-S_{k+1}+2<0$ for all even $k$. So the total sum $\sum_{i,j}\sigma_{ij}^2=n^2\times O(1/n^2)=O(1).\;\;\square$\\
+
+By WLLN, the tail bound is $\big(\sum_{i,j}\sigma_{ij}^2\big)/n^2\epsilon^2$, and in both \textbf{(A)} and \textbf{(B)} we've shown that $\big(\sum_{i,j}\sigma_{ij}^2\big)/n^2\epsilon^2\leq O(1/n^2\epsilon^2)$. Follow by Borel-Cantelli lemma we thus have proved that $\sum_{i=1}^nW_{ii}^k/n-\mathbb{E}\big(\sum_{i=1}^nW^k_{ii}/n\big)\rightarrow 0$ a.s. (As the statement in the first paragraph).
+\qed\qquad
+\end{answer}\\
+
+\begin{exercise}8.5.9. If all the random graphs in \textsc{Exercise} 8.4.5 are defined on the
+same probability space, show that the convergence is almost sure.
+\end{exercise}
+\begin{answer} \textsc{Exercise 8.4.5.} has shown that for any $\epsilon>0$,
+\begin{equation*}
+\begin{aligned}
+    \mathbb{P}\Big(\Big|\frac{T_{n,p}}{\binom{n}{3}}-p^3\Big|\geq\epsilon\Big)&\leq\frac{6}{n^6\epsilon^2}\Big(\binom{n}{4}\big(p^5-(p^3)^2\big)+\binom{n}{3}\big(p^3-(p^3)^2\big)\Big)\\&
+    =O(n^{-2}).
+\end{aligned}
+\end{equation*}
+Let $\{|T_{n,p}/\binom{n}{3}-p^3|\geq\epsilon\}=A_{n,\epsilon}$, then $\sum_{n\in\mathbb{N}}\mathbb{P}(A_{n,\epsilon})<\infty$. By Borel-Cantelli lemma we then have $\mathbb{P}(\cap_{N\in\mathbb{N}}\cup_{n>N}A_{n,\epsilon})=0$, i.e.
+\begin{equation*}
+    \mathbb{P}\Big(\bigcup_{N\in\mathbb{N}}\bigcap_{n>N}\Big\{\Big|\frac{T_{n,p}}{\binom{n}{3}}-p^3\Big|<\epsilon\Big\}\Big)=1,
+\end{equation*}
+hence
+\begin{equation*}
+    \mathbb{P}\Big(\bigcap_{\epsilon>0}\bigcup_{N\in\mathbb{N}}\bigcap_{n>N}\Big\{\Big|\frac{T_{n,p}}{\binom{n}{3}}-p^3\Big|<\epsilon\Big\}\Big)=1.
+\end{equation*}
+Which means $T_{n,p}/\binom{n}{3}\rightarrow p^3$ a.s.
+\qed\qquad
+\end{answer}\\ \\
+
+\subsection{Tightness and Helly’s selection theorem}
+\begin{exercise}8.6.2. If $X_n\rightarrow X$ in distribution, show that $\{X_n\}_{n\geq1}$ is a tight family.
+\end{exercise}
+\begin{answer}
+Suppose $X_n\rightarrow X$ in distribution, and $X$ has c.d.f. $F$. Given $\epsilon>0$, there exists $K>0$ s.t. $1-F(K)+F(-K)<\epsilon/3$. There is also a $N\in\mathbb{N}$ s.t. $|F_n(K)-F(K)|<\epsilon/3$ and $|F_n(-K)-F(-K)|<\epsilon/3$ whenever $n>N$, by $X_n\rightarrow X$ in distribution. Hence we have
+\begin{equation*}
+    1-F_n(K)+F_n(-K)\leq (1-F(K)+F(-K))+|F_n(K)-F(K)|+|F_n(-K)-F(-K)|<\epsilon.
+\end{equation*}
+That is, $\mathbb{P}(|X_n|>K)<\epsilon$ whenever $n>N$. For $m\in[N]$, let $K_m$ be the positive number s.t. $\mathbb{P}(|X_m|>K_m)<\epsilon$, and let $K^\prime=\max\{K_1,\cdots,K_m,K\}+1$. Since $\mathbb{P}(|X|>t)$ is monotonically decreasing, $\mathbb{P}(|X_n|\geq K^\prime)<\epsilon$ for all $n$. Thus $\sup_n \mathbb{P}(|X_n|\geq K^{\prime})\leq \epsilon$, i.e. $\{X_n\}$ is a tight family. \qed \qquad
+\end{answer}
+
+\begin{exercise}8.6.3. If $\{X_n\}_{n\geq1}$ is a tight family and $\{c_n\}_{n\geq1}$ is a sequence of constants tending to $0$, show that $c_nX_n \rightarrow 0$ in probability.
+\end{exercise}
+\begin{answer} Suppose $\{X_n\}$ is a tight family and $\{c_n\}$ is a sequence of constants tending to $0$. Fix $\delta>0$. Given $\epsilon>0$, then there exists $K>0$ s.t. $\mathbb{P}(|X_n|\geq K)\leq\epsilon$, and hence a $N\in\mathbb{N}$ s.t. $|c_n|K<\delta$ whenever $n>N$, i.e.
+\begin{equation*}
+    \mathbb{P}(|c_nX_n|\geq\delta)\leq\mathbb{P}(|c_nX_n|\geq|c_n|K)\leq\epsilon
+\end{equation*}
+whenever $n>N$. That is, $\lim_{n\rightarrow\infty}\mathbb{P}(|c_nX_n|\geq\delta)\leq\epsilon$. Since $\epsilon>0$ is arbitrary, we have $\lim_{n\rightarrow\infty}\mathbb{P}(|c_nX_n|\geq\delta)=0$. Again, since $\delta>0$ is arbitrary, we have $c_nX_n\rightarrow 0$ in probability.
+\qed\qquad
+\end{answer}
+
+\subsection{An alternative characterization of weak convergence}
+\subsection{Inversion formulas}
+\subsection{Levy’s continuity theorem}
+
+\begin{exercise}8.9.2. If a sequence of characteristic functions $\{\phi_n\}_{n\geq1}$ converges pointwise to a characteristic function $\phi$, prove that the convergence is uniform on any bounded interval.
+\end{exercise}
+\begin{answer} Let $\{X_n\}$ be the sequence of random variables that their characteristic functions $\{\phi_n\}$ converge pointwisely to $X$'s characteristic function $\phi$. By Levy's continuity theorem (\textsc{Theorem 8.9.1.}), $X_n\rightarrow X$ in distribution. Then by \textsc{Exercise 8.6.2.}, $\{X_n\}$ is a tight family. Hence, given $\epsilon\in(0,1)$, there exists a number $K>0$ s.t. $\mathbb{P}(|X_n|\geq K)\leq\epsilon$ for all $n$ and $\mathbb{P}(|X|\geq K)\leq\epsilon$. With this $K$, take $\Delta=\epsilon/K$, then for any $|\delta|\in(0,\Delta)$,
+\begin{equation*}
+\begin{aligned}
+    |\phi_n(a)-\phi_n(a+\delta)|&=|\mathbb{E}(e^{iaX_n}-e^{i(a+\delta)X_n})|\\&
+    \leq\mathbb{E}\big(|1-e^{i\delta X_n}|;|X_n|\geq K\big)+\mathbb{E}\big(|1-e^{i\delta X_n}|;|X_n|<K\big)\\&
+    \leq 2\epsilon+2(1-\cos(\epsilon))<4\epsilon.
+\end{aligned}
+\end{equation*}
+The last line follows by $|1-e^{i\delta X_n}|=2(1-\cos(\delta X_n))$. Also, $|\phi(a)-\phi(a+\delta)|<4\epsilon$ for the same reason.\\ \\
+Now for the given bounded interval $I=(p,q)$, choose the centers of open covering $\{a_i\}_{i=1}^N$ as $p,p+\Delta,\cdots,p+(N-1)\Delta$, where $N=\lceil\frac{|I|}{\Delta}\rceil$. Then we can cover $I$ by intervals $I_{\Delta}(a_i)=(a_i-\Delta, a_i+\Delta)$, i.e. $I\subseteq\cup_{i=1}^NI_{\Delta}(a_i)$. Further, we are able to take $M\in\mathbb{N}$ such that $n>M\Rightarrow|\phi(a_i)-\phi_n(a_i)|<\epsilon$ for all $a_i$. Now fix $n>M$. For any $t\in I$, there is some $a\in\{a_i\}_{i=1}^N$ s.t. $|t-a|<\Delta$, and hence
+\begin{equation*}
+    |\phi(t)-\phi_n(t)|\leq|\phi(t)-\phi(a)|+|\phi_n(a)-\phi_n(t)|+|\phi(a)-\phi_n(a)|<4\epsilon+4\epsilon+\epsilon=9\epsilon.
+\end{equation*}
+That is, $\|\phi-\phi_n\|_{\infty,I}\leq 9\epsilon$ if $n>M$. Since $\epsilon$ is arbitrary, $\phi_n\rightarrow\phi$ uniformly on $I$.
+\qed\qquad
+\end{answer}
+
+\begin{exercise}8.9.3. If a sequence of characteristic functions $\{\phi_n\}_{n\geq1}$ converges pointwise to some function $\phi$, and $\phi$ is continuous at zero, prove that $\phi$ is also a characteristic function.
+\end{exercise}
+\begin{answer}
+Let $\{\phi_n\}$ be the sequence of characteristic functions that converge pointwisely to $\phi$. Clearly $\phi(0)=1$ since $\phi_n(0)=1$ for all $n$. Also $\phi$ is continuous at $0$, for given $\epsilon>0$ there is a number $a>0$ s.t. $|\phi(0)-\phi(s)|\leq\epsilon/2$ if $|s|<a$. Hence
+\begin{equation*}
+    \frac{1}{a}\int_{-a}^a(1-\phi(s))ds\leq\frac{\epsilon}{2}\cdot 2=\epsilon.
+\end{equation*}
+Since $\phi_n\rightarrow\phi$ pointwisely and $|\phi_n|\leq 1$, by LDCT we have
+\begin{equation*}
+    \lim_{n\rightarrow\infty}\frac{1}{a}\int_{-a}^a(1-\phi_n(s))ds=\frac{1}{a}\int_{-a}^a(1-\phi(s))ds\leq\epsilon.
+\end{equation*}
+Hence $\limsup_{n\rightarrow\infty}\mathbb{P}(|X_n|\geq t)\leq\epsilon$ by letting $t=2/a$ and \textsc{Proposition 6.4.4.} This implies there is a $N\in\mathbb{N}$ s.t. $n>N\Rightarrow\mathbb{P}(|X_n|\geq t)<2\epsilon$. Then there exists a larger $K_N$ s.t. $\mathbb{P}(|X_n|\geq K_N)<2\epsilon$ for all $n$, i.e. $\{X_n\}$ is a tight family.\\ \\
+Since $\{X_n\}$ is a tight family, by Helly’s selection theorem, there is a subsequence $\{X_{k(n)}\}$ of $\{X_n\}$ s.t. $X_{k(n)}\rightarrow Y$ in distribution for some $Y$. Then by Levy’s continuity theorem, $\phi_{k(n)}\rightarrow\phi_Y$ pointwisely. But $\phi_{n}\rightarrow\phi$ pointwisely, i.e. every subsequence of $\{\phi_n\}$ converges to $\phi$ pointwisely. Hence $\phi=\phi_Y$ is a characteristic function.
+\qed\qquad
+\end{answer}
+
+\newpage
+
+\subsection{The central limit theorem for i.i.d. sums}
+\begin{exercise}8.10.5  Give a counterexample to show that the i.i.d. assumption in Theorem 8.10.1 cannot be replaced by the assumption of identically distributed and pairwise independent.
+\end{exercise}
+\begin{answer} (c.f. Durrett's textbook Example 4.5.) Let $X_1,X_2,\cdots$ be a sequence of i.i.d. random variables with $\mathbb{P}(X_1=1)=1/2$, $\mathbb{P}(X_1=-1)=1/2$. Define a set of random variables
+\begin{equation*}
+    \{Y_i\}_{i=1}^{2^n}=\Big\{X_1\prod_{j\in S}X_j:S\subseteq\{2,\cdots,n+1\}\Big\}.
+\end{equation*}
+Then $Y_i$ are identically distributed (as same as $X_1$) and pairwise independent. Also,
+\begin{equation*}
+S_{2^n}=\sum_{i=1}^{2^n}Y_i=X_1(1+X_2)\cdots(1+X_{n+1}),
+\end{equation*}
+and $\mathbb{P}(S_{2^n}=2^n)=1/2^n$, $\mathbb{P}(S_{2^n}=-2^n)=1/2^n$, $\mathbb{P}(S_{2^n}=0)=1-2/2^n$ by i.i.d. of $\{X_i\}$. Therefore
+\begin{equation*}
+    \mathbb{E}\exp\Big(it\frac{S_{2^n}}{\sqrt{2^n}}\Big)=1-\frac{1}{2^{n-1}}+\frac{1}{2^{n-1}}\cos(t2^{n/2})\rightarrow 1 \text{ as }n\rightarrow\infty.
+\end{equation*}
+That is, by Levy's continuity theorem, $S_{2n}/\sqrt{2^n}$ doesn't converge weakly to the standard normal distribution.
+\qed\qquad
+\end{answer}
+
+\begin{exercise}8.10.6. Let $X_n\sim Bin(n, p)$. Prove a central limit theorem for $X_n$.
+\end{exercise}
+\begin{answer}
+Consider $\{Y_i\}_{i=1}$ be a sequence of i.i.d. $Ber(p)$ random variables. Then $S_n=\sum_{i=1}^nY_i\sim Bin(n,p)$. By CLT we immediately have $(S_n-np)/\sqrt{np(1-p)}$ converges weakly to the standard normal distribution as $n\rightarrow\infty$.
+\qed \qquad
+\end{answer}
+
+\begin{exercise}8.10.7. Let $X_n\sim Gamma(n, \lambda_n)$. Prove a central limit theorem for $X_n$.
+\end{exercise}
+\begin{answer}
+Consider $\{Y_i\}_{i=1}$ be a sequence of i.i.d. $Exp(\lambda)$ random variables. Then $S_n=\sum_{i=1}^nY_i\sim Gamma(n,\lambda)$. By CLT we immediately have $(S_n-n/\lambda)/\sqrt{n/\lambda^2}$ converges weakly to the standard normal distribution as $n\rightarrow\infty$.
+\qed \qquad
+\end{answer}
+
+\begin{exercise}8.10.8.  Suppose that $X_n\sim Gamma(n, \lambda_n)$, where $\{\lambda_n\}_{n=1}^\infty$ is any sequence of positive constants. Prove a CLT for $X_n$.
+\end{exercise}
+\begin{answer} Here we need to recall the characteristic function of $Gamma(n,\lambda_n)$ random variable. Let $t\in\mathbb{R}$ and $\gamma_1(x)=(\lambda_n-it)x$ for $x\in[0,R]$ be a curve in complex plane. Then we can write
+\begin{equation*}
+    \int_{0}^\infty x^{n-1}e^{-(\lambda_n-it)x}dx=\frac{1}{(\lambda_n-it)^n}\lim_{R\rightarrow\infty}\int_{\gamma_1}z^{n-1}e^{-z}dz.
+\end{equation*}
+Now define $\gamma_2(x)=x$ on $[0,R]$ and $\gamma_3(x)=R+x(\lambda_n-1-it)$ for $x\in[0,R]$. Let $f(z)=z^{n-1}e^{-z}$. Then by Cauchy integral theorem we have
+\begin{equation*}
+    \int_{\gamma_1}f(z)dz-\int_{\gamma_3}f(z)dz-\int_{\gamma_2}f(z)dz=0,
+\end{equation*}
+where
+\begin{equation*}
+    \int_{\gamma_3}f(z)dz=e^{-R}(\lambda_n-1-it)\int_0^R(R+(\lambda_n-1-it)x)^{n-1}e^{-(\lambda_n-1)x}e^{-itx}dx
+\end{equation*}
+tends to $0$ as $R\rightarrow\infty$. Therefore $\lim_{R\rightarrow\infty}\int_{\gamma_1}=\lim_{R\rightarrow\infty}\int_{\gamma_2}$, hence.
+\begin{equation*}
+    \int_0^\infty x^{n-1}e^{-(\lambda_n-it)x}dx=\frac{1}{(\lambda_n-it)^n}\int_0^\infty x^{n-1}e^{-x}dx=\frac{\Gamma(n)}{(\lambda_n-it)^n}.
+\end{equation*}
+Thus the characteristic function of $Gamma(n,\lambda_n)$ random variable is
+\begin{equation*}
+    \mathbb{E}e^{itX}=\frac{\lambda_n}{(\lambda_n-it)^n}=\Big(1-i\frac{t}{\lambda_n}\Big)^{-n}.
+\end{equation*}
+Now let $Y_n=(X_n-a_n)/b_n$, then
+\begin{equation*}
+    \mathbb{E}e^{itY_n}=e^{-i\frac{a_n}{b_n}t}\Big(1-i\frac{t}{b_n\lambda_n}\Big)^{-n}.
+\end{equation*}
+One can find that by taking logarithm and doing Taylor expansion, if we set $a_n=n/\lambda_n$ and $b_n=\sqrt{n}/\lambda_n$, then
+\begin{equation*}
+    \log\mathbb{E}(e^{itY_n})&=-i\sqrt{n}t-n\Big(-i\frac{t}{\sqrt{n}}+\frac{t^2}{2n}+i\frac{t^3}{3n\sqrt{n}}+o\Big(\frac{t^3}{n^{3/2}}\Big)\Big) 
+    \rightarrow -\frac{t^2}{2}\text{ as }n\rightarrow\infty.
+\end{equation*}
+That is, $\mathbb{E}e^{itY_n}\rightarrow e^{-\frac{t^2}{2}}$ pointwisely as $n\rightarrow\infty$. By Levy's continuity theorem, we thus have $\frac{Y_n-(n/\lambda_n)}{\sqrt{n}/\lambda_n}$ converges to standard normal r.v. in distribution.   \qed\qquad
+\end{answer}
+
+\begin{exercise}8.10.10.  Let $X_1, X_2,\cdots$ be a sequence of i.i.d. random variables. For each $i\geq2$, let
+\begin{equation*}
+    Y_i=
+    \left\{
+    \begin{array}{ll}
+    1\;\;\;&\text{if }X_i\geq\max\{X_{i-1},X_{i+1}\}  \\
+    0\;\;\;&\text{if not.} 
+    \end{array}
+    \right.
+\end{equation*}
+In other words, $Y_i$ is $1$ if and only if the original sequence has a local maximum at $i$. Prove a central limit theorem $\sum_{i=2}^n Y_i$.
+\end{exercise}
+\begin{answer} Since $X_i$ are i.i.d., one can find that $\{Y_i\}_{i=2}$ is a stationary $2$-dependent sequence of r.v. Hence we can apply CLT for stationary $m$-dependent sequence by setting
+\begin{equation*}
+\sigma^2=\text{Var}(Y_2)+2\text{Cov}(Y_2,Y_3)+2\text{Cov}(Y_2,Y_4).
+\end{equation*}
+Where $\mathbb{E}(Y_2)=\mathbb{E}(Y_2^2)=\mathbb{P}(X_2=\max\{X_1,X_2,X_3\})=1/3$, and
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}(Y_2Y_3)&=\mathbb{P}(Y_2=\max\{X_1,X_2,X_3\},Y_3=\max\{X_2,X_3,X_4\})=0
+        \\
+        \mathbb{E}(Y_2Y_4)&=\mathbb{P}(Y_2=\max\{X_1,X_2,X_3\},Y_4=\max\{X_3,X_4,X_5\})
+        \\&
+        =\frac{2\cdot(1\cdot1\cdot2!+1\cdot3!)}{5!}=\frac{2}{15},
+    \end{aligned}
+\end{equation*}
+therefore $\sigma^2=2/45$. And $\frac{\sum_{i=2}^n(Y_i-\frac{1}{3})}{\sqrt{2n/45}}$ converges weakly to standard normal distribution as $n\rightarrow\infty$ by \textsc{Theorem 8.10.9.} \qed\qquad
+\end{answer}
+
+\subsection{The Lindeberg–Feller central limit theorem}
+
+\begin{exercise}8.11.4. Suppose that $X_n\sim Bin(n, p_n)$, where $\{p_n\}_{n=1}^\infty$ is a sequence of constants such that $np_n(1-p_n)\rightarrow\infty$. Prove a CLT for $X_n$.
+\end{exercise}
+\begin{answer}
+For each $n$, define $S_n=\sum_{i=1}^n{Y_{p_n,i}}$ where $\{Y_{p_n,i}\}_{i=1}^n$ are i.i.d. $Ber(p_n)$ random variables. It's suffice to prove CLT for $S_n$ since $S_n\sim Bin(n,p_n)$ has the same distribution to $X_n$. Now, we prove the Lindeberg's condition for $\{Y_{p_n,i}\}_{i=1}^n$. Note that $\text{Var}(S_n)=n\text{Var}(Y_{p_n,1})=np_n(1-p_n)$. Given $\epsilon>0$ and $n\in\mathbb{N}$, by Cauchy-Schwarz and Markov inequality,
+\begin{equation*}
+\begin{aligned}
+    \mathbb{E}\Big(\frac{(Y_{p_n,1}-p_n)^2}{np_n(1-p_n)};\frac{|Y_{p_n,1}-p_n|}{\sqrt{np_n(1-p_n)}}\geq\epsilon\Big)^2&\leq\mathbb{E}\Big(\frac{(Y_{p_n,1}-p_n)^4}{n^2p_n^2(1-p_n)^2}\Big)\mathbb{P}\Big(\frac{(Y_{p_n,1}-p_n)^2}{np_n(1-p_n)}\geq\epsilon^2\Big)
+    \\&
+    \leq\frac{p_n^3+(1-p_n)^3}{n^2p_n(1-p_n)}\times\frac{1}{n\epsilon^2}.
+\end{aligned}
+\end{equation*}
+Since $np_n(1-p_n)\rightarrow\infty$ as $n\rightarrow\infty$,
+\begin{equation*}
+    \sum_{i=1}^n\mathbb{E}\Big(\frac{(Y_{p_n,i}-p_n)^2}{np_n(1-p_n)};\frac{|Y_{p_n,i}-p_n|}{\sqrt{np_n(1-p_n)}}\geq\epsilon\Big)\leq
+    \frac{1}{\epsilon}\sqrt{\frac{p_n^3+(1-p_n)^3}{np_n(1-p_n)}}\rightarrow 0\text{ as }n\rightarrow\infty.
+\end{equation*}
+That is, $\{Y_{p_n,i}\}_{i=1}^n$ satisfies the Lindeberg's condition. In fact, one can simply see that $\mathbb{P}\big(|Y_{p_n,1}-p_n|\geq\epsilon\sqrt{np_n(1-p_n)}\big)=0$ as $n\rightarrow\infty$ since $|Y_{p_n,1}-p_n|$ is bounded. Now by Lindeberg-Feller's CLT, we have $\frac{S_n-np_n}{\sqrt{np_n(1-p_n)}}$ converges weakly to the standard normal distribution. \qed\qquad
+\end{answer}
+
+\begin{exercise}8.11.5. Let $X_1, X_2, \cdots$ be a sequence of uniformly bounded independent random variables, and let $S_n =\sum_{i=1}^n X_i$. If $\text{Var}(S_n)\rightarrow\infty$, show that $S_n$ satisfies a central limit theorem.
+\end{exercise}
+\begin{answer} Let $\mu_i=\mathbb{E}(X_i)$ and $s_n^2=\text{Var}(S_n)=\sum_{i=1}^n\text{Var}(X_i)$. Since $\{X_i\}_{i=1}^n$ is uniformly bounded, clearly $|X_i-\mu_i|$ is also uniformly bounded, i.e. there is some $M>0$ s.t. $M\geq|X_i-\mu_i|$ for all $i\in\mathbb{N}$. Now given $\epsilon>0$, by the fact that $s_n^2\rightarrow\infty$, we choose $N\in\mathbb{N}$ s.t. $s_n^2> M/\epsilon$ whenever $n>N$. Therefore, for any $n>N$, $\mathbb{P}(|X_i-\mu_i|\geq\epsilon s_n^2)=0$ for all $i$, i.e. $\mathbb{E}((X_i-\mu_i)^2;|X_i-\mu_i|\geq\epsilon s_n)=0$ for all $i$, and thus the Lindeberg's condition holds. By Lindeberg-Feller's CLT again, we now have $\frac{S_n-\sum_{i=1}^n\mu_i}{s_n}$ converges weakly to the standard normal distribution as $n\rightarrow\infty$.
+\qed \qquad
+\end{answer}
