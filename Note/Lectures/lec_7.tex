@@ -2,12 +2,12 @@
 
 \subsection{Definition}
 
-\begin{exercise}\label{7.1.3}
-7.1.3. Show that a collection of events $\{ A_i\}_{i \in I}$ are independent if and only if for any finite $J \subseteq I$,
-$$
-    \mathbb{P}(\bigcap_{j \in J} A_j)  = \prod_{j \in J} A_j. 
-$$
-\end{exercise}
+{\bf Exercise 7.1.3.}
+Show that a collection of events $\{ A_i\}_{i \in I}$ are independent if and only if for any finite $J \subseteq I$,
+\begin{align*}
+\mathbb{P}(\bigcap_{j \in J} A_j) = \prod_{j \in J} A_j.
+\end{align*}
+\label{7.1.3}
 \begin{answer} (Neng-Tai)
     For any $B_i \in \{ A_i, A_i^c\}$. Where $j \in J$ finite index, $|J| = m+n \in \mathbb{N}$. Let $J = J_1 \bigcup J_2$, where $J_1 = \{ j | B_j = A_j\}, J_2 = \{ j| B_j = A_j^c\}$, and $|J_1| = m, |J_2| = n$, 
     
@@ -124,83 +124,86 @@ If $\{ X_i\}_{i \in I}$ is a collection of independent random variables and $\{A
     $\hfill\qed$ 
 \end{answer}
 
-\begin{exercise}7.1.9.
-If $\mathcal{A}$ is a $\pi$-system of sets and $B$ is an event such that $B$ and $A$ are independent for every $A\in\mathcal{A}$, show that $B$ and $\sigma(\mathcal{A})$ are independent.
-\end{exercise}
+\noindent{\bf Exercise 7.1.9.}
+\label{7.1.9}
+If $\mathcal{A}$ is a $\pi$-system of sets and $B$ is an event such that $B$ and $A$ are independent for every $A\in\mathcal{A}$, show that $B$ and $\sigma(\mathcal{A})$ are independent.\\
 
-\begin{answer}
-    $\mathcal{A}$ is a $\pi$-system. B is the set that is independent to all elements in $\mathcal{A}$. \\
-    The strategy is to construct a larger $\lambda$-system $\mathcal{L}$ containing $\mathcal{A}$, with its elements are all independent to $B$. Since Dynkin's $\pi-\lambda$ theorem tells us that $\sigma(\mathcal{A})\subset\mathcal{L}$, then the proof would be completed.\\
-    Consider the set that collects all the event that is independent to $B$ in $\mathcal{F}$:
-    \begin{equation*}
-        \mathcal{L}=\{C\in\mathcal{F}:\mathbb{P}(B\cap C)=\mathbb{P}(B)\mathbb{P}(C)\}.
-    \end{equation*}
-    Check $\mathcal{L}$ is a $\lambda$-system. First $\Omega\in\mathcal{L}$ since $\mathbb{P}(\Omega\cap B)=\mathbb{P}(B)=\mathbb{P}(\Omega)\mathbb{P}(B)$. Secondly if $L\in\mathcal{L}$ then $\mathbb{P}(L\cap B) = \mathbb{P}(B)\mathbb{P}(L)$. Since $\mathbb{P}(L^c\cap B) = \mathbb{P}(B\setminus B\cap L)=\mathbb{P}(B)-\mathbb{P}(B\cap L)$ by $(B\cap L)\cup(B\cap L^c)$ is a disjoint union, we then have $\mathbb{P}(L^c\cap B) = (1-\mathbb{P}(L))\mathbb{P}(B)=\mathbb{P}(L^c)\mathbb{P}(B)$. So $L^c\in\mathcal{L}$. Lastly, suppose $L_1,L_2,\cdots$ is a sequence of disjoint sets in $\mathcal{L}$, then
-    \begin{equation*}
-        \begin{aligned}
-                    \mathbb{P}(\bigcup^\infty_{n=1}L_n\cap B)&=\mathbb{P}(\bigcup^\infty_{n=1}(L_n\cap B)) \\
-                    &=\sum_{n\in\mathbb{N}}\mathbb{P}(L_n\cap B) && (\text{$(L_n\cap B)\subset L_n$ and $L_n$s are disjoint}) \\
-                    &=\sum_{n\in\mathbb{N}}\mathbb{P}(L_n)\mathbb{P}(B) && (L_n\in\mathcal{L}) \\
-                    &=\mathbb{P}(B)\mathbb{P}(\bigcup^\infty_{n=1}L_n) && (L_n\text{  disjoint}).
-        \end{aligned}
-    \end{equation*}
-    So $\mathcal{L}$ forms a $\lambda$-system. Since all the elements $A\in\mathcal{A}$ are independent to $B$, we have $\mathcal{A}\subset\mathcal{L}$.\\
-    Now by Dynkin's $\pi-\lambda$ theorem, $\sigma(\mathcal{A})\subset\mathcal{L}$ since $\mathcal{A}$ is a $\pi$-system. Hence $\sigma(\mathcal{A})$ is independent to $B$.
-    \qquad \qed
-\end{answer}
+% \begin{answer}
+\noindent$Solution.$
+$\mathcal{A}$ is a $\pi$-system. $B$ is the set that is independent to all elements in $\mathcal{A}$. \\
+The strategy is to construct a larger $\lambda$-system $\mathcal{L}$ containing $\mathcal{A}$, with its elements are all independent to $B$. Since Dynkin's $\pi-\lambda$ theorem tells us that $\sigma(\mathcal{A})\subset\mathcal{L}$, then the proof would be completed.\\
+Consider the set that collects all the event that is independent to $B$ in $\mathcal{F}$:
+\begin{equation*}
+    \mathcal{L}=\{C\in\mathcal{F}:\mathbb{P}(B\cap C)=\mathbb{P}(B)\mathbb{P}(C)\}.
+\end{equation*}
+Check $\mathcal{L}$ is a $\lambda$-system. First $\Omega\in\mathcal{L}$ since $\mathbb{P}(\Omega\cap B)=\mathbb{P}(B)=\mathbb{P}(\Omega)\mathbb{P}(B)$. Secondly if $L\in\mathcal{L}$ then $\mathbb{P}(L\cap B) = \mathbb{P}(B)\mathbb{P}(L)$. Since $\mathbb{P}(L^c\cap B) = \mathbb{P}(B\setminus B\cap L)=\mathbb{P}(B)-\mathbb{P}(B\cap L)$ by $(B\cap L)\cup(B\cap L^c)$ is a disjoint union, we then have $\mathbb{P}(L^c\cap B) = (1-\mathbb{P}(L))\mathbb{P}(B)=\mathbb{P}(L^c)\mathbb{P}(B)$. So $L^c\in\mathcal{L}$. Lastly, suppose $L_1,L_2,\cdots$ is a sequence of disjoint sets in $\mathcal{L}$, then
+\begin{align*}
+\mathbb{P}\left(\bigcup^\infty_{n=1}L_n\cap B\right)&=\mathbb{P}\left(\bigcup^\infty_{n=1}(L_n\cap B)\right) \\
+&=\sum_{n\in\mathbb{N}}\mathbb{P}(L_n\cap B) && (\text{$(L_n\cap B)\subset L_n$ and $L_n$s are disjoint}) \\
+&=\sum_{n\in\mathbb{N}}\mathbb{P}(L_n)\mathbb{P}(B) && (L_n\in\mathcal{L}) \\
+&=\mathbb{P}(B)\mathbb{P}\left(\bigcup^\infty_{n=1}L_n\right) && (L_n\text{  disjoint}).
+\end{align*}
+So $\mathcal{L}$ forms a $\lambda$-system. Since all the elements $A\in\mathcal{A}$ are independent to $B$, we have $\mathcal{A}\subset\mathcal{L}$.\\
+Now by Dynkin's $\pi-\lambda$ theorem, $\sigma(\mathcal{A})\subset\mathcal{L}$ since $\mathcal{A}$ is a $\pi$-system. Hence $\sigma(\mathcal{A})$ is independent to $B$.
+$\hspace{\fill}\square$\\
+% \end{answer}
 
-\begin{exercise}7.1.10. If $\{X_i\}_{i\in I}$ is a collection of independent random variables, then show that for any disjoint subsets $J, K \subseteq I$, the $\sigma$-algebras generated by
-$\{X_i\}_{i\in J}$ and $\{X_i\}_{i\in K}$ are independent.
-\end{exercise}
-\begin{answer}
-    $\{X_i\}_{i\in I}$ is a collection of independent random variables. Let $J,K\subseteq I$ be disjoint. I want to show that $\sigma(\{X_i\}_{i\in J})$ and $\sigma(\{X_i\}_{i\in K})$ are independent.\\
-    Define $\mathcal{P}_J$, $\mathcal{P}_K$ as follows:
-    \begin{equation*}
-        \begin{aligned}
-                    &\mathcal{P}_J=\Big\{\bigcap_{i=1}^n\{X_{j_i}\in A_i\}:A_i\in\mathcal{B}(\mathbb{R}), \{j_1,\cdots,j_n\}\subset J\Big\}.\\
-                    &\mathcal{P}_K=\Big\{\bigcap_{i=1}^n\{X_{k_i}\in A_i\}:A_i\in\mathcal{B}(\mathbb{R}), \{k_1,\cdots,k_n\}\subset K\Big\}.
-        \end{aligned}
-    \end{equation*}
-    They're $\pi$-systems since the intersection is closed in $\mathcal{P}_J$ ($\mathcal{P}_K$):
-    \begin{equation*}
-        \left(\bigcap_{n=1}^{N_1}\{X_{i_n}\in A_n\}\right)\bigcap\left(\bigcap_{n=1}^{N_2}\{X_{j_n}\in B_n\}\right)=\bigcap_{n=1}^{N}\{X_{k_n}\in C_n\}
-    \end{equation*}
-    for some $\{k_1,\cdots,k_N\}\subseteq\{i_1,\cdots,i_{N_1}\}\cup\{j_1,\cdots,j_{N_2}\}$ and some Borel sets $C_n$.\\
-    We can also see that $\{X_j\in A\}\in\mathcal{P}_J$ for any $j\in J$ and $A\in\mathcal{B}(\mathbb{R})$, hence
-    \begin{equation*}
-        \bigcup_{j\in J}\sigma(X_j)=\bigcup_{j\in J}\Big\{\{X_j\in A\}:A\in\mathcal{B}(\mathbb{R})\Big\}\subset\mathcal{P}_J.
-    \end{equation*}
-    Thus $\sigma(\{X_j\}_{j\in J})\subseteq\sigma(\mathcal{P}_J)$. Similarly $\sigma(\{X_k\}_{k\in K})\subseteq\sigma(\mathcal{P}_K)$.\\
-    Let $\cap_{n=1}^{N_1}\{X_{j_n}\in A_n\}\in\mathcal{P}_{J}$ and $\cap_{n=1}^{N_2}\{X_{k_n}\in B_n\}\in\mathcal{P}_{K}$, then by independence of $\{\sigma(X_i)\}_{i\in I}$:
-    \begin{equation*}
-        \begin{aligned}
-                \mathbb{P}\left(\bigcap_{n=1}^{N_1}\{X_{j_n}\in A_n\}\cap\bigcap_{n=1}^{N_2}\{X_{k_n}\in B_n\}\right)&=\prod_{n=1}^{N_1}\mathbb{P}(\{X_{j_n}\in A_n\})\times\prod_{n=1}^{N_2}\mathbb{P}(\{X_{k_n}\in B_n\}) \\
-                &=\mathbb{P}\left(\bigcap_{n=1}^{N_1}\{X_{j_n}\in A_n\}\right)\mathbb{P}\left(\bigcap_{n=1}^{N_2}\{X_{k_n}\in B_n\}\right).
-        \end{aligned}
-    \end{equation*}
-    Hence every elements in $\mathcal{P}_J$ are independent to all elements in $\mathcal{P}_K$. By Exercise 7.1.9 this implies $\sigma(\mathcal{P}_J)$ is independent to $\sigma(\mathcal{P}_K)$. Since $\sigma(\{X_j\}_{j\in J})\subseteq\sigma(\mathcal{P}_J)$ and $\sigma(\{X_k\}_{k\in K})\subseteq\sigma(\mathcal{P}_K)$, $\sigma(\{X_j\}_{j\in J})$ is independent to $\sigma(\{X_k\}_{k\in K})$. \qquad \qed
-\end{answer}
+\noindent{\bf Exercise 7.1.10.}
+\label{7.1.10}
+If $\{X_i\}_{i\in I}$ is a collection of independent random variables, then show that for any disjoint subsets $J, K \subseteq I$, the $\sigma$-algebras generated by
+$\{X_i\}_{i\in J}$ and $\{X_i\}_{i\in K}$ are independent.\\
 
-\begin{exercise} 7.1.11. 
-Let $\{X_i\}_{i\in I}$ and $\{Y_j\}_{j\in J}$ be two collections of random variables defined on the same probability space. Suppose that for any finite $F\subseteq I$ and $G\subseteq J$, the collections $\{X_i\}_{i\in F}$ and $\{Y_j\}_{j\in G}$ are independent. Then prove that $\{X_i\}_{i\in I}$ and $\{Y_j\}_{j\in J}$ are independent.
-\end{exercise}
-\begin{answer}
-    $\{X_i\}_{i\in I}$ and $\{Y_j\}_{j\in J}$ are two collections of random variables defined on the same probability space. For any finite $F\subseteq I$ and $G\subseteq J$ the collections $\{X_i\}_{i\in F}$ and $\{Y_j\}_{j\in G}$ are independent. I'm going to prove that $\sigma(\{X_i\}_{i\in I})$ and $\sigma(\{Y_j\}_{j\in J})$ are independent.\\
-    Similar to Exercise 7.1.10, define the collection $\mathcal{P}_I$ and $\mathcal{P}_J$ as
-    \begin{equation*}
-        \begin{aligned}
-                    &\mathcal{P}_X=\Big\{\bigcap_{f\in F}\{X_{f}\in A_f\}:A_f\in\mathcal{B}(\mathbb{R}),\,F\subseteq I\Big,\,|F|<\infty\Big\}.\\
-                    &\mathcal{P}_Y=\Big\{\bigcap_{g\in G}\{Y_{g}\in A_g\}:A_g\in\mathcal{B}(\mathbb{R}),\,G\subseteq J,\,|G|<\infty\Big\}.
-        \end{aligned}
-    \end{equation*}
-    Then they're $\pi$-systems. Since $\{X_i\in A\}\in\mathcal{P}_X$ for all $A\in\mathcal{B}(\mathbb{R})$ and $i\in I$,
-    \begin{equation*}
-                \bigcup_{i\in I}\sigma(X_i)=\bigcup_{i\in I}\Big\{\{X_i\in A\}:A\in\mathcal{B}(\mathbb{R})\Big\}\subset\mathcal{P}_X.
-    \end{equation*}
-    Thus $\sigma(\{X_i\}_{i\in I})\subseteq\sigma(\mathcal{P}_X)$, so does $\sigma(\{Y_j\}_{j\in J})\subseteq\sigma(\mathcal{P}_Y)$.\\
-    Let $S_X\in\mathcal{P}_X$, then $S_X=\bigcap_{f\in F}\{X_f\in A_f\}\in\sigma(\{X_f\}_{f\in F})$ for some finite $F\subseteq I$ and some Borel sets $A_f$. If $S_Y\in\mathcal{P}_Y$ we also have $S_Y\in\sigma(\{Y_g\}_{g\in G})$ for some finite $G\subseteq J$. Since $\sigma(\{X_f\}_{f\in F})$ and $\sigma(\{Y_g\}_{g\in G})$ are independent for any finite $F\subseteq I$ and $G\subseteq J$, $S_X$ and $S_Y$ are independent.\\
-    Then by Exercise 7.1.9, all elements in $\mathcal{P}_X$ are independent to all elements in $\mathcal{P}_Y$ implies $\sigma(\mathcal{P}_X)$ and $\sigma(\mathcal{P}_Y)$ are independent. Hence $\sigma(\{X_i\}_{i\in I})$ and $\sigma(\{Y_j\}_{j\in J})$ are independent. \qquad \qed
-\end{answer}
+\noindent$Solution.$
+$\{X_i\}_{i\in I}$ is a collection of independent random variables. Let $J,K\subseteq I$ be disjoint. I want to show that $\sigma(\{X_i\}_{i\in J})$ and $\sigma(\{X_i\}_{i\in K})$ are independent.\\
+Define $\mathcal{P}_J$, $\mathcal{P}_K$ as follows:
+\begin{align*}
+    &\mathcal{P}_J=\Big\{\bigcap_{i=1}^n\{X_{j_i}\in A_i\}:A_i\in\mathcal{B}(\mathbb{R}), \{j_1,\cdots,j_n\}\subset J\Big\}.\\
+    &\mathcal{P}_K=\Big\{\bigcap_{i=1}^n\{X_{k_i}\in A_i\}:A_i\in\mathcal{B}(\mathbb{R}), \{k_1,\cdots,k_n\}\subset K\Big\}.
+\end{align*}
+They're $\pi$-systems since the intersection is closed in $\mathcal{P}_J$ ($\mathcal{P}_K$):
+\begin{equation*}
+    \left(\bigcap_{n=1}^{N_1}\{X_{i_n}\in A_n\}\right)\bigcap\left(\bigcap_{n=1}^{N_2}\{X_{j_n}\in B_n\}\right)=\bigcap_{n=1}^{N}\{X_{k_n}\in C_n\}
+\end{equation*}
+for some $\{k_1,\cdots,k_N\}\subseteq\{i_1,\cdots,i_{N_1}\}\cup\{j_1,\cdots,j_{N_2}\}$ and some Borel sets $C_n$.
+
+We can also see that $\{X_j\in A\}\in\mathcal{P}_J$ for any $j\in J$ and $A\in\mathcal{B}(\mathbb{R})$, hence
+\begin{equation*}
+    \bigcup_{j\in J}\sigma(X_j)=\bigcup_{j\in J}\Big\{\{X_j\in A\}:A\in\mathcal{B}(\mathbb{R})\Big\}\subset\mathcal{P}_J.
+\end{equation*}
+Thus $\sigma(\{X_j\}_{j\in J})\subseteq\sigma(\mathcal{P}_J)$. Similarly $\sigma(\{X_k\}_{k\in K})\subseteq\sigma(\mathcal{P}_K)$.
+
+Let $\cap_{n=1}^{N_1}\{X_{j_n}\in A_n\}\in\mathcal{P}_{J}$ and $\cap_{n=1}^{N_2}\{X_{k_n}\in B_n\}\in\mathcal{P}_{K}$, then by independence of $\{\sigma(X_i)\}_{i\in I}$:
+\begin{align*}
+    \mathbb{P}\left(\bigcap_{n=1}^{N_1}\{X_{j_n}\in A_n\}\cap\bigcap_{n=1}^{N_2}\{X_{k_n}\in B_n\}\right)&=\prod_{n=1}^{N_1}\mathbb{P}(\{X_{j_n}\in A_n\})\times\prod_{n=1}^{N_2}\mathbb{P}(\{X_{k_n}\in B_n\}) \\
+    &=\mathbb{P}\left(\bigcap_{n=1}^{N_1}\{X_{j_n}\in A_n\}\right)\mathbb{P}\left(\bigcap_{n=1}^{N_2}\{X_{k_n}\in B_n\}\right).
+\end{align*}
+Hence every elements in $\mathcal{P}_J$ are independent to all elements in $\mathcal{P}_K$. By Exercise 7.1.9 this implies $\sigma(\mathcal{P}_J)$ is independent to $\sigma(\mathcal{P}_K)$. Since $\sigma(\{X_j\}_{j\in J})\subseteq\sigma(\mathcal{P}_J)$ and $\sigma(\{X_k\}_{k\in K})\subseteq\sigma(\mathcal{P}_K)$, $\sigma(\{X_j\}_{j\in J})$ is independent to $\sigma(\{X_k\}_{k\in K})$.
+$\hspace{\fill}\square$\\
+% \end{answer}
+
+\noindent{\bf Exercise 7.1.11.}
+\label{7.1.11}
+Let $\{X_i\}_{i\in I}$ and $\{Y_j\}_{j\in J}$ be two collections of random variables defined on the same probability space. Suppose that for any finite $F\subseteq I$ and $G\subseteq J$, the collections $\{X_i\}_{i\in F}$ and $\{Y_j\}_{j\in G}$ are independent. Then prove that $\{X_i\}_{i\in I}$ and $\{Y_j\}_{j\in J}$ are independent.\\
+
+\noindent$Solution.$
+$\{X_i\}_{i\in I}$ and $\{Y_j\}_{j\in J}$ are two collections of random variables defined on the same probability space. For any finite $F\subseteq I$ and $G\subseteq J$ the collections $\{X_i\}_{i\in F}$ and $\{Y_j\}_{j\in G}$ are independent. I'm going to prove that $\sigma(\{X_i\}_{i\in I})$ and $\sigma(\{Y_j\}_{j\in J})$ are independent.
+
+Similar to Exercise 7.1.10, define the collection $\mathcal{P}_I$ and $\mathcal{P}_J$ as
+\begin{align*}
+    &\mathcal{P}_X=\Big\{\bigcap_{f\in F}\{X_{f}\in A_f\}:A_f\in\mathcal{B}(\mathbb{R}),\,F\subseteq I\Big,\,|F|<\infty\Big\}.\\
+    &\mathcal{P}_Y=\Big\{\bigcap_{g\in G}\{Y_{g}\in A_g\}:A_g\in\mathcal{B}(\mathbb{R}),\,G\subseteq J,\,|G|<\infty\Big\}.
+\end{align*}
+Then they're $\pi$-systems. Since $\{X_i\in A\}\in\mathcal{P}_X$ for all $A\in\mathcal{B}(\mathbb{R})$ and $i\in I$,
+\begin{equation*}
+    \bigcup_{i\in I}\sigma(X_i)=\bigcup_{i\in I}\Big\{\{X_i\in A\}:A\in\mathcal{B}(\mathbb{R})\Big\}\subset\mathcal{P}_X.
+\end{equation*}
+Thus $\sigma(\{X_i\}_{i\in I})\subseteq\sigma(\mathcal{P}_X)$, so does $\sigma(\{Y_j\}_{j\in J})\subseteq\sigma(\mathcal{P}_Y)$.
+
+Let $S_X\in\mathcal{P}_X$, then $S_X=\bigcap_{f\in F}\{X_f\in A_f\}\in\sigma(\{X_f\}_{f\in F})$ for some finite $F\subseteq I$ and some Borel sets $A_f$. If $S_Y\in\mathcal{P}_Y$ we also have $S_Y\in\sigma(\{Y_g\}_{g\in G})$ for some finite $G\subseteq J$. Since $\sigma(\{X_f\}_{f\in F})$ and $\sigma(\{Y_g\}_{g\in G})$ are independent for any finite $F\subseteq I$ and $G\subseteq J$, $S_X$ and $S_Y$ are independent.
+
+Then by Exercise 7.1.9, all the elements in $\mathcal{P}_X$ are independent to all the elements in $\mathcal{P}_Y$ implies $\sigma(\mathcal{P}_X)$ and $\sigma(\mathcal{P}_Y)$ are independent. Hence $\sigma(\{X_i\}_{i\in I})$ and $\sigma(\{Y_j\}_{j\in J})$ are independent.
+$\hspace{\fill}\square$\\
+% \end{answer}
 
 \subsection{Expectation of a product under independence}
 
@@ -507,7 +510,7 @@ Let $X \in \mathbb{R}^n $be a random vector, then the covariance matrix of $X$ i
 \begin{exercise}7.6.7. 
 Given $\mu \in \mathbb{R}^n$, and $\Sigma$ is a strictly positive definite matrix of order $n$. Show that the formula
 \begin{equation*}
-    f(x) = \frac{1}{(2 \pi )^{n/2}(det \Sigma)^{1/2}} exp(-\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu))
+    f(x) = \frac{1}{(2 \pi )^{n/2}(det \Sigma)^{1/2}}\exp\left(-\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu)\right)
 \end{equation*}
 \\ is indeed a p.d.f. of a probability law on $\mathbb{R}^{n}$, and that this law has mean vector $\mu$ and a covariance matrix  $\Sigma$.\\
 \end{exercise}

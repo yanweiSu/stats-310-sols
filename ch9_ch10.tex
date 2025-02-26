@@ -1039,7 +1039,7 @@ Combine them together, we then get
 The last inequality holds since $0\leq\mathbb{E}(\mathds{1}_{\{X_n=1\}}|\mathcal{F}_{n-1})\leq 1$.
 Therefore,
 \[
-\mathbb{E}\left(\frac{Z_n}{P_n^2}\bigg|\mathcal{F}_{n-1}\right)
+\mathbb{E}\left(\frac{Z_n}{P_n^2}\mid\mathcal{F}_{n-1}\right)
 \leq
 \frac{Z_{n-1}}{P_{n-1}^2}
 +
@@ -1222,18 +1222,18 @@ Then, we bound the RHS by choosing a $n$ to bound $|f_n(x+s)-f(x+s)|$ for any $s
 This proves that $f\in C[0,\infty)$, and therefore the space $(C[0,\infty),\rho)$ is complete.
 
 
-\newpage
-\noindent
-Doob's optional stopping theorem:
-\begin{enumerate}
-\item The stopping time $\tau<\infty$ a.s.
-\item $M_{t\wedge\tau}$ behaves regularly enough, e.g. $M_{t\wedge\tau}$ is uniformly bounded.
-\end{enumerate}
-Then $\lim_{t\rightarrow\infty}M_{t\wedge\tau}=M_\tau$ a.s., and note that $M_{t\wedge\tau}$ is a martingale,
-\[
-\mathbb{E}\lim_{t\rightarrow\infty}M_{t\wedge\tau}=\lim_{t\rightarrow\infty}\mathbb{E}M_{t\wedge\tau}=\lim_{t\rightarrow\infty}\mathbb{E}M_0=\mathbb{E}M_0.
-\]
-That is, $\mathbb{E}M_\tau=\mathbb{E}M_0$.
+%\newpage
+%\noindent
+%Doob's optional stopping theorem:
+%\begin{enumerate}
+%\item The stopping time $\tau<\infty$ a.s.
+%\item $M_{t\wedge\tau}$ behaves regularly enough, e.g. $M_{t\wedge\tau}$ is uniformly bounded.
+%\end{enumerate}
+%Then $\lim_{t\rightarrow\infty}M_{t\wedge\tau}=M_\tau$ a.s., and note that $M_{t\wedge\tau}$ is a martingale,
+%\[
+%\mathbb{E}\lim_{t\rightarrow\infty}M_{t\wedge\tau}=\lim_{t\rightarrow\infty}\mathbb{E}M_{t\wedge\tau}=\lim_{t\rightarrow\infty}\mathbb{E}M_0=\mathbb{E}M_0.
+%\]
+%That is, $\mathbb{E}M_\tau=\mathbb{E}M_0$.
 
 
 
